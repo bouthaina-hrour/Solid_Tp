@@ -3,17 +3,25 @@ package services;
 import org.json.simple.JSONObject;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DbPokemonService implements PokemonService{
 
+    String dbfile;
+
+    public DbPokemonService(String dbfile) {
+        this.dbfile = dbfile;
+    }
 
     @Override
-    public Object getPokemon(int id) {
+    public Map<String,Object> getPokemonData(int id) {
+        Map<String,Object> datas =new HashMap<String,Object>();
         Connection conn = null;
         ResultSet rs=null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:C:\\Users\\HP\\Desktop\\SOLID_TP\\sujet_TP\\ressources\\pokemondatabase.sqlite";
+            String url = "jdbc:sqlite:"+dbfile;
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite has been established.");
@@ -22,10 +30,14 @@ public class DbPokemonService implements PokemonService{
             stmt.setInt(1, id);
              rs  = stmt.executeQuery();
             rs.next();
+            datas.put("name",rs.getString("name"));
+            datas.put("description",rs.getString("description"));
+            datas.put("height",rs.getInt("height"));
+            datas.put("weight",rs.getInt("weight"));
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return rs;
+        return datas;
     }
 }

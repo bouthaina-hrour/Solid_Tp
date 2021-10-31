@@ -2,7 +2,7 @@ package views;
 
 import controllers.PokemonController;
 import models.Pokemon;
-import models.PokemonWithDesc;
+import models.AdvancedPokemon;
 
 import java.sql.SQLException;
 
@@ -27,8 +27,8 @@ public class PokemonView {
                 pokemon.getHeight() +
                 ")"
         );
-    if(pokemon instanceof PokemonWithDesc){
-            System.out.println("Pokemon description " + ((PokemonWithDesc) pokemon).getDescription());
+    if(pokemon instanceof AdvancedPokemon){
+            System.out.println("Pokemon description " + ((AdvancedPokemon) pokemon).getDescription());
         }
     }
 }

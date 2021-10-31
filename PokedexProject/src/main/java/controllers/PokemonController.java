@@ -1,52 +1,49 @@
 package controllers;
 
 import models.Pokemon;
-import models.PokemonWithDesc;
-import org.json.simple.JSONObject;
-import services.ApiPokemonService;
-import services.DbPokemonService;
+import models.AdvancedPokemon;
 import services.PokemonService;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 
 public class PokemonController {
     //my controller depends on the service abstraction and not the implementation
     public PokemonService pokemonService;
-    int size;
 
 
-
-    public PokemonController(PokemonService pokemonService,int size) {
-        this.size=size;
+    public PokemonController(PokemonService pokemonService) {
         this.pokemonService = pokemonService;
     }
 
-
     // this function use the pokemonService class to get raw data then instantiate pokemonModel
     public Pokemon getPokemon(int id) throws SQLException {
-        Pokemon pokemon=null;
-        if(size==1){
-            pokemon =new Pokemon();
-            pokemonService=new ApiPokemonService();
-            JSONObject pokemonObj= (JSONObject) pokemonService.getPokemon(id);
-            pokemon.setId(id);
-            pokemon.setName(""+pokemonObj.get("name"));
-            pokemon.setHeight(Integer.valueOf((""+ pokemonObj.get("height"))));
-            pokemon.setWeight(Integer.valueOf(""+ pokemonObj.get("weight")));
 
-    }else if(size==2){
-            pokemon= new PokemonWithDesc();
-            pokemonService=new DbPokemonService();
-            ResultSet pokemonresult= (ResultSet) pokemonService.getPokemon(id);
-            pokemon.setId(id);
-            pokemon.setName(pokemonresult.getString("name"));
-            ((PokemonWithDesc)pokemon).setDescription(pokemonresult.getString("description"));
-            pokemon.setHeight(pokemonresult.getInt("height"));
-            pokemon.setWeight(pokemonresult.getInt("weight"));
+        Pokemon pokemon=new Pokemon();
+        Map<String ,Object> datas=pokemonService.getPokemonData(id);
 
+        pokemon.setId(id);
+        pokemon.setName(""+datas.get("name"));
+        pokemon.setHeight(Integer.valueOf((""+ datas.get("height"))));
+        pokemon.setWeight(Integer.valueOf(""+ datas.get("weight")));
+        if(datas.containsKey("description")){
+            pokemon= new AdvancedPokemon();
+            pokemon.setId(id);
+            pokemon.setName(""+datas.get("name"));
+            pokemon.setHeight(Integer.valueOf((""+ datas.get("height"))));
+            pokemon.setWeight(Integer.valueOf(""+ datas.get("weight")));
+
+            ((AdvancedPokemon)pokemon).setDescription(""+datas.get("description"));
         }
+
+
+
+
+
+
+
+
         return pokemon;
     }
 

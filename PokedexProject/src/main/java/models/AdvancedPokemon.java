@@ -1,6 +1,6 @@
 package models;
 
-public class PokemonWithDesc extends Pokemon{
+public class AdvancedPokemon extends Pokemon{
     private String description;
 
     public String getDescription() {
@@ -11,10 +11,10 @@ public class PokemonWithDesc extends Pokemon{
         this.description = description;
     }
 
-    public PokemonWithDesc() {
+    public AdvancedPokemon() {
     }
 
-    public PokemonWithDesc(String description) {
+    public AdvancedPokemon(String description) {
 
         this.description = description;
     }

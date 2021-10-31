@@ -10,10 +10,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class ApiPokemonService implements PokemonService {
     @Override
-    public Object getPokemon(int id) {
+    public Map<String,Object> getPokemonData(int id) {
+        Map<String,Object> datas= new HashMap<String,Object>();
         String jsonResponse = "";
 
         JSONObject obj=new JSONObject();
@@ -29,6 +34,14 @@ public class ApiPokemonService implements PokemonService {
             Object resultObject = parser.parse(jsonResponse);
             if (resultObject instanceof JSONObject) {
                  obj =(JSONObject)resultObject;
+                Set keys=obj.keySet();
+                Iterator<String> it=keys.iterator();
+                while (it.hasNext()){
+                    String key= it.next();
+                    Object value=obj.get(key);
+                    datas.put(key,value);
+
+                }
 
 
             } else {
@@ -44,7 +57,7 @@ public class ApiPokemonService implements PokemonService {
             System.err.println(jsonResponse);
             e.printStackTrace();
         }
-        return obj;
+        return datas;
     }
     }
 
