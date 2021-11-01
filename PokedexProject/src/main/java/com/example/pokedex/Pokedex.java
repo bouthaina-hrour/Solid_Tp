@@ -2,16 +2,21 @@ package com.example.pokedex;
 
 
 import controllers.PokemonController;
+import models.Pokemon;
 import services.ApiPokemonService;
 import services.DbPokemonService;
 import services.PokemonService;
+import utilities.ConsoleLogUtility;
+import utilities.FileLogUtility;
 import views.PokemonView;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Pokedex {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
+        String outputFile="output.html";
 
         System.out.println("It's working !");
         if (args.length > 0) {
@@ -28,8 +33,11 @@ public class Pokedex {
                 break;
         }
         PokemonController pokemonController=new PokemonController(pokemonService);
-        PokemonView pokemonView=new PokemonView(pokemonController);
-        pokemonView.showPokemon(Integer.valueOf(args[0]));
+        Pokemon pokemon=pokemonController.getPokemon(Integer.valueOf(args[0]));
+        PokemonView pokemonView=new PokemonView(pokemon);
+        ConsoleLogUtility.logTextToConsole(pokemonView);
+        FileLogUtility.logHtmlToFile(outputFile,pokemonView);
+
     }
     public String getName(){
         return "Hello";
