@@ -15,6 +15,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The low level service gets data from api
+ * it implements the abstraction
+ */
 public class ApiPokemonService implements PokemonService {
     @Override
     public Map<String,Object> getPokemonData(int id) {
@@ -33,7 +37,13 @@ public class ApiPokemonService implements PokemonService {
             JSONParser parser = new JSONParser();
             Object resultObject = parser.parse(jsonResponse);
             if (resultObject instanceof JSONObject) {
-                 obj =(JSONObject)resultObject;
+                /**
+                 * gets data from api as JSON object
+                 */
+                obj =(JSONObject)resultObject;
+                /**
+                 * puts data from JSON object in a hash map
+                 */
                 Set keys=obj.keySet();
                 Iterator<String> it=keys.iterator();
                 while (it.hasNext()){
@@ -57,6 +67,9 @@ public class ApiPokemonService implements PokemonService {
             System.err.println(jsonResponse);
             e.printStackTrace();
         }
+        /**
+         * returns the hash map
+         */
         return datas;
     }
     }

@@ -1,6 +1,5 @@
 package utilities;
 
-import views.PokemonView;
 import views.TextGeneratorInterface;
 
 public class ConsoleLogUtility {

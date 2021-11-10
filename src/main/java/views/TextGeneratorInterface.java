@@ -1,5 +1,7 @@
 package views;
-
+/**devides outputgenerator in two interfeces
+ * this pne for text generating
+ **/
 public interface TextGeneratorInterface {
-    public String generateText();
+     String generateText();
 }

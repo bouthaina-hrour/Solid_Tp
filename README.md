@@ -27,3 +27,5 @@ To run the application with command line arguments :
 ```
 ./gradlew test
 ```
+
+# My main program is Pokedex in com.example.package

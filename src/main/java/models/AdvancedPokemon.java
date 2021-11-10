@@ -1,4 +1,7 @@
 package models;
+/**
+ * a pokemon with a new feature
+ */
 
 public class AdvancedPokemon extends Pokemon{
     private String description;
@@ -14,8 +17,4 @@ public class AdvancedPokemon extends Pokemon{
     public AdvancedPokemon() {
     }
 
-    public AdvancedPokemon(String description) {
-
-        this.description = description;
-    }
 }

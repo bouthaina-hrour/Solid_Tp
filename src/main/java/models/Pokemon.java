@@ -1,5 +1,8 @@
 package models;
-// my class model that stocks data and represents the pokemon
+/**
+ * my class model that stocks data and represents the pokemon
+ */
+
 public class Pokemon {
     private int id ;
     private String name;

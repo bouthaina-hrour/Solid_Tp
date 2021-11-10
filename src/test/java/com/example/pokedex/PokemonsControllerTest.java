@@ -59,6 +59,10 @@ public class PokemonsControllerTest {
 
     }
 
+    /**
+     * mock service that implements {@link PokemonService}
+     * and give data containing a descroption
+     */
     class PokemonFetcherMock implements PokemonService {
         @Override
         public Map<String, Object> getPokemonData(int id) {
